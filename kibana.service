@@ -1,0 +1,31 @@
+[Unit]
+Description=Kibana
+Documentation=https://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=KBN_HOME=/home/kibana/kibana-8.15.0
+Environment=KBN_PATH_CONF=/home/kibana/kibana-8.15.0/config
+
+WorkingDirectory=/home/kibana/kibana-8.15.0
+
+User=kibana
+Group=kibana
+
+ExecStart=bash /home/kibana/kibana-8.15.0/bin/kibana
+
+
+StandardOutput=journal
+StandardError=inherit
+
+Restart=on-failure
+RestartSec=3
+
+StartLimitBurst=3
+StartLimitInterval=60
+
+[Install]
+WantedBy=multi-user.target
+
+# Built for @project.name@-@project.version@ (@project.name@)
